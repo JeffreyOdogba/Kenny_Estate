@@ -1,0 +1,26 @@
+<div class="ui container contact">
+    <form class="ui form" method="POST" action="admin/customHome" name="vForm" onsubmit="return validateForm()">
+        <h2 class="ui dividing header" style="text-align: center;">Home Page Description</h2>
+        <div class="two fields">
+            <div class="field">
+                <label>Estate Name*</label>
+                <input type="text" name="estateName" placeholder="Estate Name">
+                <span id="errorName"></span>
+            </div>
+        </div>
+
+        <h4 class="ui dividing header">Estate Description*</h4>
+        <div class="field">
+            <div class="ui form">
+                <div class="field">
+                    <span id="errorDescription"></span>
+                    <textarea name="estateDescription"
+                        placeholder="Why Client/Customers Should Rent Your Homes?"></textarea>
+                </div>
+            </div>
+        </div>
+        <input type="submit" class="ui button" tabindex="0" value="Save">
+    </form>
+</div>
+
+ 

@@ -1,0 +1,45 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  height: 100%;
+  margin: 0;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.header-info{
+  width: 100%;
+  height: 5%;
+  background-color: darkslateblue;
+}
+.header-info a{
+  font-size: 20px;
+  font-weight: 500;
+  color: cornsilk;
+}
+.header-margin{
+  margin: 60px;
+}
+
+.carousel-inner{
+  max-height: 600px !important;
+}
+.text-bal{
+  text-align: center;
+  text-overflow: inherit;
+}
+.text-bal-width{
+  width: 40%;
+}
+.contact{
+  margin-top: 20px;
+  background-color: rgba(251, 255, 255, 0.479);
+}
+
+.footer{
+  position: fixed;
+   left: 0;
+   bottom: 0;
+}
