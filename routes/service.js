@@ -49,20 +49,21 @@ const customEditForHomePage = (req, res) => {
 };
 
 const contactUs = (req,res) => {
-    const{fullname,email,tel,suites} = req.body;
+    const{fullname,email,tel,suites,moreInformation} = req.body;
 
     const id  = uuid();
 
     pool.query(
-        "INSERT INTO user_reserves (user_id,fullname,email,phone,suites_selected,more_information) VALUES()",
-        [id,fullname,email,tel,suites],(error,result) => {
+        "INSERT INTO user_reserves (user_id,fullname,email,phone,suites_selected,more_information) VALUES($1,$2,$3,$4,$5,$6)",
+        [id,fullname,email,tel,suites,moreInformation],
+        (error,result) => {
             if (error) {
                 throw error;
             }
-            
+            res.redirect("/");            
         }
     );
-    }
+    };
 
 module.exports = {
   getAllReserves,

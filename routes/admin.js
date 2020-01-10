@@ -10,4 +10,6 @@ router.get('/',service.getAllReserves);
 
 router.post ('/customHome', service.customEditForHomePage);
 
+
+
 module.exports = router;
