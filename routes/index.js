@@ -5,10 +5,10 @@ const service = require('./service');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {  
-  res.render('index', { title: 'Kenny Exotic Rentals' });
+  res.render('index', { title: 'Kenny Exotic Rentals', success: '' });
 });
 
-router.post('/userReserve', service.contactUs);
+router.post('/', service.contactUs); 
 
 
 

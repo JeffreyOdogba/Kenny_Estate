@@ -1,4 +1,12 @@
 <% include partials/head.ejs %>
+
+
+<%  if(success != ''){ %>
+  <div class="alert alert-success">
+    <strong>Success</strong> <%= success %>
+  </div>
+  <% } %>
+
 <div class="">
   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
@@ -100,7 +108,7 @@
 
 <!--Reserve/Contact Apointment-->
 <div class="ui container contact">
-  <form class="ui form" method="POST" action="/userReserve">
+  <form class="ui form" method="POST" action="/">
     <h2 class=" ui dividing header" style="text-align: center;">Contact Us</h2>
     <div class="two fields">
       <div class="field">
@@ -140,6 +148,7 @@
   </form>
 </div>
 <br><br><br>
+
 
 
 <!--Reserve/Contact Apointment-->

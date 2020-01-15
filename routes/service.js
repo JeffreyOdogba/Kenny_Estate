@@ -59,8 +59,10 @@ const contactUs = (req,res) => {
         (error,result) => {
             if (error) {
                 throw error;
+            }else{
+            res.render("index", {title: 'Kenny Exotic Rentals', success: "Your request was successfully posted "});
             }
-            res.redirect("/");            
+                        
         }
     );
     };
