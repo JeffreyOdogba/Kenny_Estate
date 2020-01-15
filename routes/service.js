@@ -48,6 +48,55 @@ const customEditForHomePage = (req, res) => {
   );
 };
 
+// Add Suites and Photo
+
+
+const AddNewSuites = (req,res) => {
+  
+  //AddSuite();
+  insertPhoto();
+  
+  res.render("backhouse",{success:""});
+}
+
+const AddSuite = () =>{
+  const {suitename,address,suiteprice,numberofrooms,suitedescription} = req.body;
+
+  var id = uuid();
+
+  pool.query(
+    "INSERT INTO suites (suite_id,suite_name,suite_description,num_of_rooms,suite_address,suite_price) VALUES($1,$2,$3,$4,$5,$6)",
+    [id,suitename,suitedescription,numberofrooms,address,suiteprice],(error,result)=>{
+      if (error) {
+        throw error;
+      }
+      return id;
+  }
+  );
+  
+}
+
+const insertPhoto =()=>{
+  const{suiteimage} = req.body;
+
+  const suite_photo_id = uuid();
+
+  const suite_id = AddSuite();
+
+  
+  pool.query(
+    "INSERT INTO suite_photos (suite_photo_id,suite_photo,suite_id) VALUES($1,$2,$3)",
+    [suite_photo_id,suiteimage,suite_id], (error,result)=>{
+      if (error) {
+        throw error;
+      }
+    });
+}
+
+// Add Suites and Photo
+
+
+
 const contactUs = (req,res) => {
     const{fullname,email,tel,suites,moreInformation} = req.body;
 
@@ -65,7 +114,12 @@ const contactUs = (req,res) => {
                         
         }
     );
+
+    
     };
+
+   
+    
 
 module.exports = {
   getAllReserves,
