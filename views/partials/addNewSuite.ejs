@@ -1,5 +1,7 @@
+<br>
+<br>
 <div class="ui container contact">
-    <form class="ui form" method="POST" action="/">
+    <form class="ui form" method="POST" action="admin/postsuite">
       <h2 class=" ui dividing header" style="text-align: center;">Add New Suites</h2>
       <div class="two fields">
         <div class="field">
@@ -21,12 +23,7 @@
           <label>Number of rooms*</label>
           <input type="number" name="numberofrooms" id="" placeholder="Number of rooms">
         </div>
-      </div>
-
-      <div class="field">
-        <label>Add Suites Images</label>
-          <input type="file" name="suiteimage" multiple>
-      </div>
+      </div>      
   
       <h4 class="ui dividing header">Suites Description</h4>
       <div class="field">
@@ -38,4 +35,31 @@
       </div>
       <input type="submit" class="ui button" tabindex="0" value="Save New Suite">
     </form>
+
+<br>
+<br>
+
+    <form  class="ui form" action="" method="post" enctype="multipart/form-data">      
+
+      <h2 class=" ui dividing header" style="text-align: center;">Add Images to suites</h2>
+
+      <div class="two fields">
+        <div class="field">
+          <label>Add Suites Images</label>
+            <input name="suiteimage" type="file">
+        </div>
+        <div class="field">
+          <label>Suites*</label>
+          <select name="suites" class="ui dropdown">
+            <option value="Niagara">Niagara</option>
+            <option value="Mississauga">Mississauga</option>
+            <option value="Oakville">Oakville</option>
+          </select>
+        </div>
+      </div>
+      <input type="submit" class="ui button" tabindex="0" value="Save New Suite">
+    </form>
+
   </div>
+
+  
