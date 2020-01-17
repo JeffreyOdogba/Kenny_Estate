@@ -23,24 +23,52 @@ pool.on("connect", () => {
   console.log("connected to the database");
 });
 
-const getAllReserves = (req, res) => {
+var obj = {};
+
+// Get All User_Reservers
+
+const getReserves = (req, res) => {
   pool.query("select * from user_reserves", (error, results) => {
     if (error) throw error;
     if (results.length > 0) {
       return res.render("backhouse", {
-        title: "apartment",
+        title: "admin",
         error: false,
         data: results.rows
       });
     } else {
       return res.render("backhouse", {
-        title: "apartment",
+        title: "admin",
         error: true,
         data: results.rows
       });
     }
   });
 };
+
+//Get All Suites
+const getSuites = (req,res) => {
+  pool.query("select * from suites", (error,results)=> {
+    if (error) throw error;
+
+    
+    if (results.length > 0) {
+      return res.render("backhouse", {
+        title: "admin",
+        error: false,
+        data: results.rows
+      });
+    } else {
+      return res.render("backhouse", {
+        title: "admin",
+        error: true,
+        data: results.rows
+      });
+    }
+  });
+};
+
+// Add Custom Edit for Home
 
 const customEditForHomePage = (req, res) => {
   const { estateName, estateDescription } = req.body;
@@ -59,7 +87,7 @@ const customEditForHomePage = (req, res) => {
 
 // Add Suites and Photo
 
-const AddNewSuites = (req, res) => {
+const PostSuite = (req, res) => {
   const {
     suitename,
     address,
@@ -83,10 +111,9 @@ const AddNewSuites = (req, res) => {
 };
 
 // Insert photo 
-const insertPhoto = (req, res) => {
+const PostPhoto = (req, res) => {
   const { suiteimage } = req.body;
   const suite_photo_id = uuid();
-  const suite_id = AddSuite();
 
   
 
@@ -133,8 +160,10 @@ const contactUs = (req, res) => {
 };
 
 module.exports = {
-  getAllReserves,
+  getReserves,
+  getSuites,
   customEditForHomePage,
-  AddNewSuites,
+  PostSuite,
+  PostPhoto,
   contactUs
 };

@@ -3,6 +3,16 @@
 <% include partials/customHomePageForm.ejs %>
 <% include partials/addNewSuite.ejs %>
 
+<% data.forEach(function(row) { %>
+
+    <%= row.more_information %>
+    <% }) %> 
+
+
+<% data.forEach(function(row) { %>
+
+    <%= row.suite_name %>
+    <% }) %>
 
 <br> <br>
 <% include partials/footer.ejs %>
