@@ -39,7 +39,7 @@
 <br>
 <br>
 
-    <form  class="ui form" action="" method="post" enctype="multipart/form-data">      
+    <form  class="ui form" action="admin/uploadphoto" method="POST" enctype="multipart/form-data">      
 
       <h2 class=" ui dividing header" style="text-align: center;">Add Images to suites</h2>
 
@@ -50,10 +50,11 @@
         </div>
         <div class="field">
           <label>Suites*</label>
-          <select name="suites" class="ui dropdown">
-            <option value="Niagara">Niagara</option>
-            <option value="Mississauga">Mississauga</option>
-            <option value="Oakville">Oakville</option>
+          <select name="suiteselected" class="ui dropdown">
+            <% suites.forEach(function(suite) { %>     
+              <option name = "suiteid" value="<%= suite.suite_name %>"><%= suite.suite_name %></option>
+              <% })%>
+            
           </select>
         </div>
       </div>

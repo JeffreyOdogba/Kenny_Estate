@@ -3,16 +3,14 @@
 <% include partials/customHomePageForm.ejs %>
 <% include partials/addNewSuite.ejs %>
 
-<% data.forEach(function(row) { %>
+<% reserves.forEach(function(things) { %>
 
-    <%= row.more_information %>
-    <% }) %> 
+    <%= things.more_information %>
+    <% }); %>
+    
 
 
-<% data.forEach(function(row) { %>
 
-    <%= row.suite_name %>
-    <% }) %>
 
 <br> <br>
 <% include partials/footer.ejs %>
