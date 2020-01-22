@@ -23,7 +23,6 @@ pool.on("connect", () => {
   console.log("connected to the database");
 });
 
-var obj = {};
 
 // Get All User_Reservers And Suites 
 
@@ -90,32 +89,36 @@ const PostSuite = (req, res) => {
   );
 };
 
+
+
 // Insert photo 
 const PostPhoto = (req, res) => {
-  var suiteimage;
-  const suite_photo_id = uuid(); 
-  const {suiteselected} = req.body;
-  console.log( suiteselected + " --ID")
+   const suite_photo_id = uuid(); 
+
+  upload(req, res, function(err) {
+    const {suiteselected} = req.body;
+    console.log(req.file);
+    var imagePath = req.file.path.replace(/^public\//, '');
+    console.log( suiteselected + " --ID")
+   console.log(imagePath);
 
 
-  upload(req, res, err => {
-     suiteimage = req.file.path;
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(suiteimage);
+   pool.query(
+    "INSERT INTO suite_photos (suite_photo_id,suite_photo,suite_id) VALUES($1,$2,$3)",
+    [suite_photo_id, imagePath,suiteselected],
+    (error, result) => {
+      if (error) {
+        throw error;
+      } else{
+        console.log(result);
+        res.redirect("/admin");
+      }
     }
-  });
+  );
+ });
+  
 
-  // pool.query(
-  //   "INSERT INTO suite_photos (suite_photo_id,suite_photo,suite_id) VALUES($1,$2, $3)",
-  //   [suite_photo_id, suiteimage,suite_id],
-  //   (error, result) => {
-  //     if (error) {
-  //       throw error;
-  //     }
-  //   }
-  // );
+
 };
 
 // Add Suites and Photo
@@ -144,7 +147,7 @@ const contactUs = (req, res) => {
 module.exports = {
   getReservesAndSuites,
   customEditForHomePage,
-  PostSuite,
+  PostSuite,  
   PostPhoto,
   contactUs
 };

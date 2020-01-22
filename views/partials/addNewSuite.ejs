@@ -39,20 +39,20 @@
 <br>
 <br>
 
-    <form  class="ui form" action="admin/uploadphoto" method="POST" enctype="multipart/form-data">      
+    <form method="POST" action="admin/uploadphoto" class="ui form"  enctype="multipart/form-data">
 
       <h2 class=" ui dividing header" style="text-align: center;">Add Images to suites</h2>
 
       <div class="two fields">
         <div class="field">
           <label>Add Suites Images</label>
-            <input name="suiteimage" type="file">
+            <input type="file" name="suiteimage">
         </div>
         <div class="field">
           <label>Suites*</label>
-          <select name="suiteselected" class="ui dropdown">
+          <select name="suiteselected" id="suiteselected" class="ui dropdown">
             <% suites.forEach(function(suite) { %>     
-              <option name = "suiteid" value="<%= suite.suite_name %>"><%= suite.suite_name %></option>
+              <option id="suiteid" name = "suiteid" value="<%= suite.suite_id %>"><%= suite.suite_name %></option>
               <% })%>
             
           </select>

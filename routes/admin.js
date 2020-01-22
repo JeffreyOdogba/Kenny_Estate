@@ -1,3 +1,4 @@
+//var path = require('path');
 var express = require('express');
 var router = express.Router();
 
@@ -16,7 +17,7 @@ router.post ('/customHome', service.customEditForHomePage);
 
 router.post ('/postsuite', service.PostSuite);
 
-router.post ('/uploadphoto', service.PostPhoto);
+router.post ('/uploadphoto',service.PostPhoto);
 
 
 
