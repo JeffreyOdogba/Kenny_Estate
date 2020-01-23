@@ -19,6 +19,8 @@ router.post ('/postsuite', service.PostSuite);
 
 router.post ('/uploadphoto',service.PostPhoto);
 
+router.get('/manage');
+
 
 
 

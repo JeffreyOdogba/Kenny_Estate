@@ -91,7 +91,7 @@ const PostSuite = (req, res) => {
 
 
 
-// Insert photo 
+// Insert photo and Suit Id
 const PostPhoto = (req, res) => {
    const suite_photo_id = uuid(); 
 
@@ -143,6 +143,21 @@ const contactUs = (req, res) => {
     }
   );
 };
+
+
+//////////////////
+//  Manage      //
+//    Update    //
+//      Delete  //
+//              //
+//              //  
+//////////////////
+
+
+
+
+
+
 
 module.exports = {
   getReservesAndSuites,

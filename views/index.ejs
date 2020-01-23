@@ -108,16 +108,18 @@
 
 <!--Reserve/Contact Apointment-->
 <div class="ui container contact">
-  <form class="ui form" method="POST" action="/">
+  <form class="ui form" method="POST" action="/" name="cForm" onsubmit="return validateForm()">
     <h2 class=" ui dividing header" style="text-align: center;">Contact Us</h2>
     <div class="two fields">
       <div class="field">
         <label>Full Name*</label>
         <input type="text" name="fullname" placeholder="Full Name">
+        <span id="fullnameError"></span>
       </div>
       <div class="field">
         <label>Email*</label>
-        <input type="text" name="email" placeholder="Email">
+        <input type="email" name="email" placeholder="Email">
+        <span id="emailError"></span>
       </div>
     </div>
 
@@ -125,6 +127,7 @@
       <div class="field">
         <label>Phone</label>
         <input type="tel" name="tel" placeholder="Phone Number (000)-000-0000">
+        <span id="telError"></span>
       </div>
       <div class="field">
         <label>Suites*</label>
@@ -140,6 +143,7 @@
     <div class="field">
       <div class="ui form">
         <div class="field">
+          <span id="moreInformationError"></span>
           <textarea name="moreInformation" placeholder="How can we help"></textarea>
         </div>
       </div>
