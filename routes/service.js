@@ -4,7 +4,7 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: './public/images',
-  filename: function(req, file, cb) {
+  filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname);
   }
 });
@@ -27,23 +27,23 @@ pool.on("connect", () => {
 // Get All User_Reservers And Suites 
 
 const getReservesAndSuites = async (req, res) => {
-  const reserves = await (await pool.query("select * from user_reserves")).rows;
-  const suites = await (await pool.query("select * from suites")).rows;
+  const reserves = (await pool.query("select * from user_reserves")).rows;
+  const suites = (await pool.query("select * from suites")).rows;
 
-  
-    res.render("backhouse", {
-      title: "admin",
-      suites: suites,
-      reserves:reserves
-    });
 
-    // CHECKING MY DATABASE
+  res.render("backhouse", {
+    title: "admin",
+    suites: suites,
+    reserves: reserves
+  });
 
-    // suites.forEach(function(da){
-    //     console.log(da.suite_name);
-    // });
-//console.log(suites[1]["suite_name"]);
- 
+  // CHECKING MY DATABASE
+
+  // suites.forEach(function(da){
+  //     console.log(da.suite_name);
+  // });
+  //console.log(suites[1]["suite_name"]);
+
 
 };
 
@@ -84,7 +84,7 @@ const PostSuite = (req, res) => {
       if (error) {
         throw error;
       }
-      res.render("backhouse", { title: "Kenny Exotic Rentals", success: "" });
+      res.redirect("/admin");
     }
   );
 };
@@ -93,30 +93,30 @@ const PostSuite = (req, res) => {
 
 // Insert photo and Suit Id
 const PostPhoto = (req, res) => {
-   const suite_photo_id = uuid(); 
+  const suite_photo_id = uuid();
 
-  upload(req, res, function(err) {
-    const {suiteselected} = req.body;
+  upload(req, res, function (err) {
+    const { suiteselected } = req.body;
     console.log(req.file);
     var imagePath = req.file.path.replace(/^public\//, '');
-    console.log( suiteselected + " --ID")
-   console.log(imagePath);
+    console.log(suiteselected + " --ID")
+    console.log(imagePath);
 
 
-   pool.query(
-    "INSERT INTO suite_photos (suite_photo_id,suite_photo,suite_id) VALUES($1,$2,$3)",
-    [suite_photo_id, imagePath,suiteselected],
-    (error, result) => {
-      if (error) {
-        throw error;
-      } else{
-        console.log(result);
-        res.redirect("/admin");
+    pool.query(
+      "INSERT INTO suite_photos (suite_photo_id,suite_photo,suite_id) VALUES($1,$2,$3)",
+      [suite_photo_id, imagePath, suiteselected],
+      (error, result) => {
+        if (error) {
+          throw error;
+        } else {
+          console.log(result);
+          res.redirect("/admin");
+        }
       }
-    }
-  );
- });
-  
+    );
+  });
+
 
 
 };
@@ -154,7 +154,12 @@ const contactUs = (req, res) => {
 //////////////////
 
 
+const getSuitePhoto = async (req, res) => {
 
+  const suiteInfo = (await pool.query("select * from suite_photos inner join suites on suite_photos.suite_id = suites.suite_id;")).rows;
+  console.log(suiteInfo);
+  res.render("manage", { title: "manage", suiteInfo: suiteInfo });
+}
 
 
 
@@ -162,7 +167,8 @@ const contactUs = (req, res) => {
 module.exports = {
   getReservesAndSuites,
   customEditForHomePage,
-  PostSuite,  
+  PostSuite,
   PostPhoto,
+  getSuitePhoto,
   contactUs
 };
