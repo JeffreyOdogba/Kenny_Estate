@@ -7,7 +7,6 @@ const service = require('./service');
 
 
 
-
 /* GET users listing. */
 
 
@@ -20,6 +19,8 @@ router.post ('/postsuite', service.PostSuite);
 router.post ('/uploadphoto',service.PostPhoto);
 
 router.get('/manage',service.getSuitePhoto);
+
+router.get('/manage/:suiteid', service.deletePost);
 
 
 

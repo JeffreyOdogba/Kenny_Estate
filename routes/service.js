@@ -3,7 +3,7 @@ const { Pool } = require("pg");
 const multer = require("multer");
 
 const storage = multer.diskStorage({
-  destination: './public/images',
+  destination: './uploads',
   filename: function (req, file, cb) {
     cb(null, Date.now() + file.originalname);
   }
@@ -98,7 +98,7 @@ const PostPhoto = (req, res) => {
   upload(req, res, function (err) {
     const { suiteselected } = req.body;
     console.log(req.file);
-    var imagePath = req.file.path.replace(/^public\//, '');
+    var imagePath = req.file.path;
     console.log(suiteselected + " --ID")
     console.log(imagePath);
 
@@ -157,9 +157,23 @@ const contactUs = (req, res) => {
 const getSuitePhoto = async (req, res) => {
 
   const suiteInfo = (await pool.query("select * from suite_photos inner join suites on suite_photos.suite_id = suites.suite_id;")).rows;
-  console.log(suiteInfo);
+  //console.log(suiteInfo);
   res.render("manage", { title: "manage", suiteInfo: suiteInfo });
-}
+};
+
+
+const deletePost = async (req,res) =>{
+  const id = req.params.suiteid;
+  console.log("Get ID " + id);
+
+ await pool.query("DELETE FROM suite_photos where suite_photo_id =$1", [req.params.suiteid],(error,result)=>{
+  if (error) {
+    throw error;
+  }
+  console.log("rResult of DElete " + result)
+  res.redirect("/admin/manage");
+  });
+};
 
 
 
@@ -170,5 +184,6 @@ module.exports = {
   PostSuite,
   PostPhoto,
   getSuitePhoto,
+  deletePost,
   contactUs
 };
