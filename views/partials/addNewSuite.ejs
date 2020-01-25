@@ -5,8 +5,11 @@
       <h2 class=" ui dividing header" style="text-align: center;">Add New Suites</h2>
       <div class="two fields">
         <div class="field">
-          <label>Suites Name*</label>
+          <label>Suites Name*</label>  
           <input type="text" name="suitename" placeholder="Suite name (It can be where its Located)">
+          <% if (messages.msg) {%>
+            <span style="color: red; font-weight: 600;"><%= messages.msg %></span>
+            <%}%>
         </div>
         <div class="field">
           <label>Suite Address*</label>

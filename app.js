@@ -4,6 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var session= require('express-session');
+var flash = require("express-flash");
 
 var indexRouter = require('./routes/index');
 var apartmentRouter = require('./routes/apartment');
@@ -20,9 +22,16 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+app.use(cookieParser('secret'));
 app.use('/uploads',express.static('uploads'));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  cookie: { maxAge: 60000 },
+  saveUninitialized: true,
+  resave: 'true',
+  secret: 'secret'
+}));
+app.use(flash());
 
 
 

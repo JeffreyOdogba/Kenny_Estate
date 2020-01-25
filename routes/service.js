@@ -82,9 +82,11 @@ const PostSuite = (req, res) => {
     [id, suitename, suitedescription, numberofrooms, address, suiteprice],
     (error, result) => {
       if (error) {
-        throw error;
+        console.log(error);
+        req.flash('msg', 'Suite already exist!');
+      return  res.redirect("/admin");
       }
-      res.redirect("/admin");
+     return res.redirect("/admin");
     }
   );
 };
