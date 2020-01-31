@@ -39,12 +39,6 @@ const getReservesAndSuites = async (req, res) => {
 
   // CHECKING MY DATABASE
 
-  // suites.forEach(function(da){
-  //     console.log(da.suite_name);
-  // });
-  //console.log(suites[1]["suite_name"]);
-
-
 };
 
 // Add Custom Edit for Home
@@ -80,7 +74,7 @@ const PostSuite = (req, res) => {
   pool.query(
     "INSERT INTO suites (suite_id,suite_name,suite_description,num_of_rooms,suite_address,suite_price) VALUES($1,$2,$3,$4,$5,$6)",
     [id, suitename, suitedescription, numberofrooms, address, suiteprice],
-    (error, result) => {
+    (error, result) => { 
       if (error) {
         console.log(error);
         req.flash('msg', 'Suite already exist!');
@@ -90,6 +84,24 @@ const PostSuite = (req, res) => {
     }
   );
 };
+
+// insert features
+const postFeatures = async ()=>{
+  const id = uuid();
+
+  const {icon, featureName, suiteselectedId ,featuredetails} = req.body;
+
+  pool.query('INSERT INTO suites_features (feature_id,feature_name,feature_details,features_logo,suite_id) VALUES($1,$2,$3,$4,$5)',[id,featureName,featuredetails, icon, suiteselectedId],
+  (error,results) => {
+    if (error) {
+      throw error;
+    }
+    return res.redirect("/admin");
+  }
+  );
+  
+};
+
 
 
 
@@ -158,10 +170,19 @@ const contactUs = (req, res) => {
 
 const getSuitePhoto = async (req, res) => {
 
-  const suiteInfo = (await pool.query("select * from suite_photos inner join suites on suite_photos.suite_id = suites.suite_id;")).rows;
-  //console.log(suiteInfo);
+  const suiteInfo = await getSuitePhotoCaller();
+  
+  console.log(suiteInfo);
   res.render("manage", { title: "manage", suiteInfo: suiteInfo });
 };
+
+// Function Caller to get all Suites and 
+const getSuitePhotoCaller = async () => {
+  const suiteInfo = (await pool.query("select * from suite_photos inner join suites on suite_photos.suite_id = suites.suite_id;")).rows;
+
+  //console.log(suiteInfo);
+  return suiteInfo;
+}
 
 
 const deletePost = async (req,res) =>{
@@ -180,6 +201,7 @@ const deletePost = async (req,res) =>{
 
 
 
+
 module.exports = {
   getReservesAndSuites,
   customEditForHomePage,
@@ -187,5 +209,6 @@ module.exports = {
   PostPhoto,
   getSuitePhoto,
   deletePost,
-  contactUs
+  contactUs,
+  getSuitePhotoCaller
 };

@@ -22,6 +22,10 @@ router.get('/manage',service.getSuitePhoto);
 
 router.get('/manage/:suiteid', service.deletePost);
 
+router.get('/features', function(req, res, next) {  
+    res.render('features', { title: 'Kenny Exotic Rentals', success: '' });
+  });
+
 
 
 
