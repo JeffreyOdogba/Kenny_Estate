@@ -74,32 +74,32 @@ const PostSuite = (req, res) => {
   pool.query(
     "INSERT INTO suites (suite_id,suite_name,suite_description,num_of_rooms,suite_address,suite_price) VALUES($1,$2,$3,$4,$5,$6)",
     [id, suitename, suitedescription, numberofrooms, address, suiteprice],
-    (error, result) => { 
+    (error, result) => {
       if (error) {
         console.log(error);
         req.flash('msg', 'Suite already exist!');
-      return  res.redirect("/admin");
+        return res.redirect("/admin");
       }
-     return res.redirect("/admin");
+      return res.redirect("/admin");
     }
   );
 };
 
 // insert features
-const postFeatures = async ()=>{
+const postFeatures = async (req, res) => {
   const id = uuid();
 
-  const {icon, featureName, suiteselectedId ,featuredetails} = req.body;
+  const { icon, featureName, suiteselectedId, featuredetails } = req.body;
 
-  pool.query('INSERT INTO suites_features (feature_id,feature_name,feature_details,features_logo,suite_id) VALUES($1,$2,$3,$4,$5)',[id,featureName,featuredetails, icon, suiteselectedId],
-  (error,results) => {
-    if (error) {
-      throw error;
+  pool.query('INSERT INTO suites_features (feature_id,feature_name,feature_details,features_logo,suite_id) VALUES($1,$2,$3,$4,$5)', [id, featureName, featuredetails, icon, suiteselectedId],
+    (error, results) => {
+      if (error) {
+        throw error;
+      }
+      return res.redirect("/admin");
     }
-    return res.redirect("/admin");
-  }
   );
-  
+
 };
 
 
@@ -171,7 +171,7 @@ const contactUs = (req, res) => {
 const getSuitePhoto = async (req, res) => {
 
   const suiteInfo = await getSuitePhotoCaller();
-  
+
   console.log(suiteInfo);
   res.render("manage", { title: "manage", suiteInfo: suiteInfo });
 };
@@ -185,16 +185,16 @@ const getSuitePhotoCaller = async () => {
 }
 
 
-const deletePost = async (req,res) =>{
+const deletePost = async (req, res) => {
   const id = req.params.suiteid;
   console.log("Get ID " + id);
 
- await pool.query("DELETE FROM suite_photos where suite_photo_id =$1", [req.params.suiteid],(error,result)=>{
-  if (error) {
-    throw error;
-  }
-  console.log("rResult of DElete " + result)
-  res.redirect("/admin/manage");
+  await pool.query("DELETE FROM suite_photos where suite_photo_id =$1", [req.params.suiteid], (error, result) => {
+    if (error) {
+      throw error;
+    }
+    console.log("rResult of DElete " + result)
+    res.redirect("/admin/manage");
   });
 };
 
@@ -207,6 +207,7 @@ module.exports = {
   customEditForHomePage,
   PostSuite,
   PostPhoto,
+  postFeatures,
   getSuitePhoto,
   deletePost,
   contactUs,
