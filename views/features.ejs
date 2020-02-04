@@ -1,24 +1,26 @@
-<% include partials/headAdmin.ejs %>
+<% include partials/head.ejs %>
+ 
+<h2><%= suiteName%></h2> 
 
-
-
-<table class="ui celled padded table">
+<table class="ui celled padded table">  
     <thead>
       <tr><th class="single line">Icon</th>
       <th>Feature name</th>
       <th>Comments</th>
     </tr></thead>
+    <% data.forEach(function(data) { %>
     <tbody>
       <tr>
         <td>
-          <h2 class="ui center aligned header">A</h2>
+          <h2 class="ui center aligned header"><%= data.features_logo %></h2>
         </td>
         <td class="single line">
-          Power Output
+          <%= data.feature_name %>
         </td>
-        <td>Creatine supplementation is the reference compound for increasing muscular creatine levels; there is variability in this increase, however, with some nonresponders.</td>
+        <td><%= data.feature_details %></td>
       </tr>
     </tbody>
+    <%});%>
   </table>
 
   

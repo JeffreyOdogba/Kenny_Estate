@@ -184,10 +184,25 @@ const getSuitePhotoCaller = async () => {
   return suiteInfo;
 }
 
+const getFeatures = async (req,res) =>{
+  const {suiteid} = req.params;
+  console.log(suiteid);
+
+  (await pool.query("select * from suites_features inner join suites on suites.suite_id = suites_features.suite_id where suites_features.suite_id = $1;",[suiteid],(error,result) =>{
+    if (error) {
+      throw error;      
+    }
+    console.log(result.rows[0].suite_name);
+    const suiteName = result.rows[0].suite_name;
+    res.render("features", {title:"Suite Features", data:result.rows, suiteName: suiteName});
+  }));
+
+}
+
 
 const deletePost = async (req, res) => {
-  const id = req.params.suiteid;
-  console.log("Get ID " + id);
+  // const id = req.params.suiteid;
+  // console.log("Get ID " + id);
 
   await pool.query("DELETE FROM suite_photos where suite_photo_id =$1", [req.params.suiteid], (error, result) => {
     if (error) {
@@ -209,6 +224,7 @@ module.exports = {
   PostPhoto,
   postFeatures,
   getSuitePhoto,
+  getFeatures,
   deletePost,
   contactUs,
   getSuitePhotoCaller

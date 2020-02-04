@@ -9,4 +9,6 @@ router.get('/', async function(req, res, next) {
     res.render('apartment', {title: 'apartment', suiteInfo:suiteInfo }); 
   });
 
+router.get('/:suiteid', service.getFeatures);
+
 module.exports = router;

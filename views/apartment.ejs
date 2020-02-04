@@ -10,7 +10,8 @@
       <div class="card h-100">
         <img src="<%='/'+data.suite_photo%>" class="card-img-top" alt="...">
         <div class="card-body">
-          <h5 class="card-title"><b><%=data.suite_name%></b></h5>
+          <h5 class="card-title"> <a href="/apartment/<%= data.suite_id %>"><b><%=data.suite_name%></b></a></h5>
+          <input type="hidden" name="id" value="<%= data.suite_id %>">
           <p class="card-text"><%=data.suite_description%></p>
         </div>
         <div class="card-body">
