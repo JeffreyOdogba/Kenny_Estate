@@ -1,8 +1,16 @@
 <% include partials/head.ejs %>
  
-<h2><%= suiteName%></h2> 
 
-<table class="ui celled padded table">  
+<div class="container">
+  <h2><%= suiteName%></h2> 
+
+  <div class="fotorama " data-nav="thumbs" data-transition="crossfade" data-width="100%" data-ratio="3.5/2" data-fit="cover">
+  <% images.forEach(function(images){%>
+    <img src="<%='/'+images.suite_photo%>"alt="<%=images.suite_photo_id%>">
+  <%});%>
+</div>
+
+  <table class="ui celled padded table">  
     <thead>
       <tr><th class="single line">Icon</th>
       <th>Feature name</th>
@@ -22,6 +30,8 @@
     </tbody>
     <%});%>
   </table>
+</div>
+
 
   
 <br> <br>

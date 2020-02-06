@@ -178,7 +178,9 @@ const getSuitePhoto = async (req, res) => {
 
 // Function Caller to get all Suites and 
 const getSuitePhotoCaller = async () => {
-  const suiteInfo = (await pool.query("select * from suite_photos inner join suites on suite_photos.suite_id = suites.suite_id;")).rows;
+  const suiteInfo = (await pool.query(
+    "WITH CTE AS (select DISTINCT *, ROW_NUMBER () OVER (PARTITION BY suites.suite_id ORDER BY suite_photos.suite_id) as num from suite_photos inner join suites on suite_photos.suite_id = suites.suite_id )SELECT * FROM CTE WHERE num = 1;"
+    )).rows;
 
   //console.log(suiteInfo);
   return suiteInfo;
@@ -188,14 +190,19 @@ const getFeatures = async (req,res) =>{
   const {suiteid} = req.params;
   console.log(suiteid);
 
-  (await pool.query("select * from suites_features inner join suites on suites.suite_id = suites_features.suite_id where suites_features.suite_id = $1;",[suiteid],(error,result) =>{
-    if (error) {
-      throw error;      
-    }
-    console.log(result.rows[0].suite_name);
+  try {
+    const result = (await pool.query("select * from suites_features inner join suites on suites.suite_id = suites_features.suite_id where suites_features.suite_id = $1;",[suiteid]));
+
+    const images = (await pool.query("select suite_photos.suite_photo, suite_photos.suite_photo_id from suite_photos inner join suites on suite_photos.suite_id = suites.suite_id where suites.suite_id = $1;",[suiteid])).rows
+
     const suiteName = result.rows[0].suite_name;
-    res.render("features", {title:"Suite Features", data:result.rows, suiteName: suiteName});
-  }));
+    if (suiteName === null || suiteName === undefined) {
+      res.redirect('/apartment');
+    }
+    res.render("features", {title:"Suite Features", data:result.rows, suiteName: suiteName, images:images});
+  } catch (error) {
+    res.redirect('/apartment');
+  } 
 
 }
 
